@@ -85,14 +85,15 @@ local function generateHtml(application)
         <style type="text/css">
             *{margin:0; padding:0;}
             html, body{
-              background-color:#eee;
-              font-family: arial;
+              background-color:#222;
+              font-family: "SF UI Text";
               font-size: 13px;
+              color:#bbb;
             }
             a{
               text-decoration:none;
-              color:#000;
-              font-size:12px;
+              color:#bbb;
+              font-size:13px;
             }
             li.title{ text-align:center;}
             ul, li{list-style: inside none; padding: 0 0 5px;}
@@ -101,7 +102,7 @@ local function generateHtml(application)
               left: 0;
               right: 0;
               height: 48px;
-              background-color:#eee;
+              background-color:#222;
             }
             header{
               position: fixed;
@@ -109,7 +110,7 @@ local function generateHtml(application)
               left: 0;
               right: 0;
               height:48px;
-              background-color:#eee;
+              background-color:#222;
               z-index:99;
             }
             footer{ bottom: 0; }

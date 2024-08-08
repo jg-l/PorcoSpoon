@@ -39,7 +39,7 @@ obj.license = "MIT - https://opensource.org/licenses/MIT"
 --- The sizes that the window can have. 
 --- The sizes are expressed as dividend of the entire screen's size.
 --- For example `{2, 3, 3/2}` means that it can be 1/2, 1/3 and 2/3 of the total screen's size
-obj.sizes = {2, 3, 3/2}
+obj.sizes = {2, 3, 4, 3/2}
 
 --- MiroWindowsManager.fullScreenSizes
 --- Variable
@@ -52,7 +52,7 @@ obj.fullScreenSizes = {1, 4/3, 2}
 --- Variable
 --- The screen's size using `hs.grid.setGrid()`
 --- This parameter is used at the spoon's `:init()`
-obj.GRID = {w = 24, h = 24}
+obj.GRID = {w = 48, h = 24}
 
 obj._pressed = {
   up = false,
@@ -102,19 +102,28 @@ function obj:_nextFullScreenStep()
 
     local nextSize = self.fullScreenSizes[1]
     for i=1,#self.fullScreenSizes do
-      if cell.w == self.GRID.w / self.fullScreenSizes[i] and 
+      if cell.w == self.GRID.w / self.fullScreenSizes[i] or 
+          cell.w == self.GRID.w / self.fullScreenSizes[i]/2 and
          cell.h == self.GRID.h / self.fullScreenSizes[i] and
-         cell.x == (self.GRID.w - self.GRID.w / self.fullScreenSizes[i]) / 2 and
+         cell.x == (self.GRID.w - self.GRID.w / self.fullScreenSizes[i]) / 2 or
+          cell.x == (self.GRID.w - self.GRID.w / self.fullScreenSizes[i]/2) / 2 and
          cell.y == (self.GRID.h - self.GRID.h / self.fullScreenSizes[i]) / 2 then
         nextSize = self.fullScreenSizes[(i % #self.fullScreenSizes) + 1]
         break
       end
     end
 
+  if nextSize == self.fullScreenSizes[1] then
     cell.w = self.GRID.w / nextSize
     cell.h = self.GRID.h / nextSize
     cell.x = (self.GRID.w - self.GRID.w / nextSize) / 2
     cell.y = (self.GRID.h - self.GRID.h / nextSize) / 2
+  else
+    cell.w = self.GRID.w / nextSize/2
+    cell.h = self.GRID.h / nextSize
+    cell.x = (self.GRID.w - self.GRID.w / nextSize/2) / 2
+    cell.y = (self.GRID.h - self.GRID.h / nextSize) / 2
+  end
 
     hs.grid.set(win, cell, screen)
   end
